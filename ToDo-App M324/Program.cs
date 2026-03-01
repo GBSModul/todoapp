@@ -17,8 +17,9 @@ class Program
             Console.WriteLine("1. Aufgabe hinzufügen");
             Console.WriteLine("2. Aufgabe entfernen");
             Console.WriteLine("3. Aufgaben anzeigen");
-            Console.WriteLine("4. Aufgaben speichern");
-            Console.WriteLine("5. Beenden");
+            Console.WriteLine("4. Aufgabe bearbeiten");
+            Console.WriteLine("5. Aufgaben speichern");
+            Console.WriteLine("6. Beenden");
             Console.Write("Auswahl: ");
 
             string choice = Console.ReadLine();
@@ -34,10 +35,13 @@ class Program
                     ShowTasks();
                     break;
                 case "4":
+                    EditTask();
+                    break;
+                case "5":
                     SaveTasks();
                     Console.WriteLine("Aufgaben gespeichert!");
                     break;
-                case "5":
+                case "6":
                     SaveTasks();
                     return;
                 default:
@@ -79,6 +83,27 @@ class Program
         {
             tasks.RemoveAt(index - 1);
             Console.WriteLine("Aufgabe entfernt!");
+        }
+        else
+        {
+            Console.WriteLine("Ungültige Eingabe!");
+        }
+    }
+    static void EditTask()
+    {
+        ShowTasks();
+        Console.Write("Nummer der zu bearbeitenden Aufgabe: ");
+
+        if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= tasks.Count)
+        {
+            Console.Write("Neue Beschreibung: ");
+            string newTask = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(newTask))
+            {
+                tasks[index - 1] = newTask;
+                Console.WriteLine("Aufgabe aktualisiert!");
+            }
         }
         else
         {
